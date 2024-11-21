@@ -1,5 +1,6 @@
 package com.mycompany.maquimanage.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -8,27 +9,32 @@ import java.time.Instant;
 @Entity
 @Table(name = "Salidas_Generales", schema = "dbo")
 public class SalidasGenerale {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_usuario")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario idUsuario;
 
-    @Column(name = "fecha_hora")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JoinColumn(name = "id_categoria_salida", nullable = false)
+    private CategoriasSalida idCategoriaSalida;
+
+    @Column(name = "fecha_hora", nullable = false)
     private Instant fechaHora;
 
-    @Column(name = "monto")
+    @Column(name = "monto", nullable = false, precision = 18, scale = 2)
     private BigDecimal monto;
 
-    @Lob
     @Column(name = "detalle")
     private String detalle;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_categoria_salida")
-    private CategoriasSalida idCategoriaSalida;
+    // Getters and Setters
 
     public Integer getId() {
         return id;
@@ -44,6 +50,14 @@ public class SalidasGenerale {
 
     public void setIdUsuario(Usuario idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    public CategoriasSalida getIdCategoriaSalida() {
+        return idCategoriaSalida;
+    }
+
+    public void setIdCategoriaSalida(CategoriasSalida idCategoriaSalida) {
+        this.idCategoriaSalida = idCategoriaSalida;
     }
 
     public Instant getFechaHora() {
@@ -69,13 +83,4 @@ public class SalidasGenerale {
     public void setDetalle(String detalle) {
         this.detalle = detalle;
     }
-
-    public CategoriasSalida getIdCategoriaSalida() {
-        return idCategoriaSalida;
-    }
-
-    public void setIdCategoriaSalida(CategoriasSalida idCategoriaSalida) {
-        this.idCategoriaSalida = idCategoriaSalida;
-    }
-
 }

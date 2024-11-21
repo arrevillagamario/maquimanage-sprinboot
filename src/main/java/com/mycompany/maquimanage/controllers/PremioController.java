@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/premios")
@@ -31,12 +32,16 @@ public class PremioController {
     }
 
     @GetMapping("/suma-dia")
-    public ResponseEntity<BigDecimal> obtenerSumaPremiosDelDia() {
-        return ResponseEntity.ok(premioService.obtenerSumaPremiosDelDia());
+    public ResponseEntity<Map<String, Object>> obtenerSumaPremiosDelDia() {
+        // Utilizar el servicio para obtener la suma del día como un JSON estructurado
+        Map<String, Object> response = premioService.obtenerSumaPremiosDelDia();
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/suma-general")
-    public ResponseEntity<BigDecimal> obtenerSumaPremiosGeneral() {
-        return ResponseEntity.ok(premioService.obtenerSumaPremiosGeneral());
+    public ResponseEntity<Map<String, Object>> obtenerSumaPremiosGeneral() {
+        // Utilizar el servicio para obtener la suma general como un JSON estructurado
+        Map<String, Object> response = premioService.obtenerSumaPremiosGeneral();
+        return ResponseEntity.ok(response);
     }
 }

@@ -1,19 +1,25 @@
 package com.mycompany.maquimanage.models.dto;
 
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 public class RegistrarDepositoDTO {
+    private BigDecimal monto;
+    private Integer idUsuario; // Asegúrate de incluir este campo
 
-    @NotNull(message = "El monto es obligatorio.")
-    @DecimalMin(value = "0.01", message = "El monto debe ser mayor que cero.")
-    private Double monto;
-
-    public Double getMonto() {
+    // Getters y Setters
+    public BigDecimal getMonto() {
         return monto;
     }
 
-    public void setMonto(Double monto) {
+    public void setMonto(BigDecimal monto) {
         this.monto = monto;
+    }
+
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
     }
 }

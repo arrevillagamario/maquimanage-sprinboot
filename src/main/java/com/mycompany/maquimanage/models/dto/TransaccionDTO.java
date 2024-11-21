@@ -1,10 +1,8 @@
 package com.mycompany.maquimanage.models.dto;
 
-import java.math.BigDecimal;
-
 public class TransaccionDTO {
     private String tipoTransaccion;
-    private BigDecimal monto;
+    private Double monto;
     private String fecha;
     private String detalle;
     private String usuario;
@@ -18,11 +16,11 @@ public class TransaccionDTO {
         this.tipoTransaccion = tipoTransaccion;
     }
 
-    public BigDecimal getMonto() {
+    public Double getMonto() {
         return monto;
     }
 
-    public void setMonto(BigDecimal monto) {
+    public void setMonto(Double monto) {
         this.monto = monto;
     }
 

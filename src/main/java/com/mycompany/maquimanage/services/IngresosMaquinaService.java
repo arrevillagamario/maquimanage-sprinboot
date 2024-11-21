@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 
 @Service
@@ -58,10 +59,16 @@ public class IngresosMaquinaService {
     }
 
     public BigDecimal obtenerSumaIngresosDelDia() {
-        LocalDate hoy = LocalDate.now(); // Fecha actual
-        return ingresosMaquinaRepository.obtenerSumaIngresosDelDia(hoy)
+        // Rango del día actual
+        LocalDate today = LocalDate.now();
+        Instant startOfDay = today.atStartOfDay(ZoneId.systemDefault()).toInstant();
+        Instant endOfDay = today.plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant();
+
+        return ingresosMaquinaRepository.obtenerSumaIngresosDelDia(startOfDay, endOfDay)
                 .orElse(BigDecimal.ZERO);
     }
+
+
 
 
     public BigDecimal obtenerSumaIngresosGeneral() {

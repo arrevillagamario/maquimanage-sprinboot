@@ -13,7 +13,9 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PremioService {
@@ -54,17 +56,31 @@ public class PremioService {
         return premioRepository.findAll();
     }
 
-    public BigDecimal obtenerSumaPremiosDelDia() {
+    public Map<String, Object> obtenerSumaPremiosDelDia() {
         // Calcular el inicio y el final del día actual
         LocalDate today = LocalDate.now();
         Instant startOfDay = today.atStartOfDay(ZoneId.systemDefault()).toInstant();
         Instant endOfDay = today.plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant();
 
         // Obtener la suma desde el repositorio
-        return premioRepository.obtenerSumaPremiosDelDia(startOfDay, endOfDay).orElse(BigDecimal.ZERO);
+        BigDecimal sumaDelDia = premioRepository.obtenerSumaPremiosDelDia(startOfDay, endOfDay).orElse(BigDecimal.ZERO);
+
+        // Crear un mapa para la respuesta
+        Map<String, Object> response = new HashMap<>();
+        response.put("fecha", today.toString());
+        response.put("sumaPremiosDelDia", sumaDelDia);
+
+        return response;
     }
 
-    public BigDecimal obtenerSumaPremiosGeneral() {
-        return premioRepository.obtenerSumaPremiosGeneral().orElse(BigDecimal.ZERO);
+    public Map<String, Object> obtenerSumaPremiosGeneral() {
+        // Obtener la suma general desde el repositorio
+        BigDecimal sumaGeneral = premioRepository.obtenerSumaPremiosGeneral().orElse(BigDecimal.ZERO);
+
+        // Crear un mapa para la respuesta
+        Map<String, Object> response = new HashMap<>();
+        response.put("sumaPremiosGeneral", sumaGeneral);
+
+        return response;
     }
 }
