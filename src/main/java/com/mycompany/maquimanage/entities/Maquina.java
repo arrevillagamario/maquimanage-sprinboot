@@ -1,26 +1,26 @@
 package com.mycompany.maquimanage.entities;
 
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "Maquinas", schema = "dbo")
 public class Maquina {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Generación automática del ID
     @Column(name = "id_maquina", nullable = false)
     private Integer id;
 
-    @Column(name = "estado")
+    @Column(name = "estado", nullable = false) // Estado no debe ser nulo
     private Boolean estado;
 
-    @Lob
-    @Column(name = "maquina")
+    @Column(name = "maquina", length = 100) // Campo con longitud limitada
     private String maquina;
 
-    @Column(name = "depsoitos")
+    @Column(name = "depsoitos", precision = 10, scale = 2) // Corregido y configurado para valores decimales
     private BigDecimal depsoitos;
 
+    // Getters y Setters
     public Integer getId() {
         return id;
     }
@@ -45,12 +45,11 @@ public class Maquina {
         this.maquina = maquina;
     }
 
-    public BigDecimal getDepsoitos() {
+    public BigDecimal getDepositos() {
         return depsoitos;
     }
 
-    public void setDepsoitos(BigDecimal depsoitos) {
-        this.depsoitos = depsoitos;
+    public void setDepositos(BigDecimal depositos) {
+        this.depsoitos = depositos;
     }
-
 }

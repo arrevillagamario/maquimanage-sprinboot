@@ -3,6 +3,8 @@ package com.mycompany.maquimanage.models.dto;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 
+import java.math.BigDecimal;
+
 public class RegistrarIngresoDTO {
 
     @NotNull(message = "El ID de la máquina es obligatorio.")
@@ -10,10 +12,13 @@ public class RegistrarIngresoDTO {
 
     @NotNull(message = "El monto depositado es obligatorio.")
     @DecimalMin(value = "0.01", message = "El monto depositado debe ser mayor que cero.")
-    private Double montoDepositado;
+    private BigDecimal montoDepositado;
 
     @DecimalMin(value = "0.01", message = "El monto retirado debe ser mayor que cero.")
-    private Double montoRetirado;
+    private BigDecimal montoRetirado;
+
+    @NotNull(message = "El ID del usuario es obligatorio.")
+    private Integer idUsuario;
 
     public Integer getIdMaquina() {
         return idMaquina;
@@ -23,19 +28,27 @@ public class RegistrarIngresoDTO {
         this.idMaquina = idMaquina;
     }
 
-    public Double getMontoDepositado() {
+    public BigDecimal getMontoDepositado() {
         return montoDepositado;
     }
 
-    public void setMontoDepositado(Double montoDepositado) {
+    public void setMontoDepositado(BigDecimal montoDepositado) {
         this.montoDepositado = montoDepositado;
     }
 
-    public Double getMontoRetirado() {
+    public BigDecimal getMontoRetirado() {
         return montoRetirado;
     }
 
-    public void setMontoRetirado(Double montoRetirado) {
+    public void setMontoRetirado(BigDecimal montoRetirado) {
         this.montoRetirado = montoRetirado;
+    }
+
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
     }
 }

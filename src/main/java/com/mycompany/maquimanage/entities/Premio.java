@@ -1,24 +1,23 @@
 package com.mycompany.maquimanage.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 import java.time.Instant;
 
 @Entity
 @Table(name = "Premios", schema = "dbo")
 public class Premio {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_premio", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_maquina")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Maquina idMaquina;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_usuario_entrega")
-    private Usuario idUsuarioEntrega;
 
     @Column(name = "monto_billete")
     private BigDecimal montoBillete;
@@ -29,6 +28,12 @@ public class Premio {
     @Column(name = "fecha_entrega")
     private Instant fechaEntrega;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JoinColumn(name = "id_usuario_entrega")
+    private Usuario idUsuarioEntrega;
+
+    // Getters y Setters
     public Integer getId() {
         return id;
     }
@@ -43,14 +48,6 @@ public class Premio {
 
     public void setIdMaquina(Maquina idMaquina) {
         this.idMaquina = idMaquina;
-    }
-
-    public Usuario getIdUsuarioEntrega() {
-        return idUsuarioEntrega;
-    }
-
-    public void setIdUsuarioEntrega(Usuario idUsuarioEntrega) {
-        this.idUsuarioEntrega = idUsuarioEntrega;
     }
 
     public BigDecimal getMontoBillete() {
@@ -77,4 +74,11 @@ public class Premio {
         this.fechaEntrega = fechaEntrega;
     }
 
+    public Usuario getIdUsuarioEntrega() {
+        return idUsuarioEntrega;
+    }
+
+    public void setIdUsuarioEntrega(Usuario idUsuarioEntrega) {
+        this.idUsuarioEntrega = idUsuarioEntrega;
+    }
 }

@@ -1,11 +1,22 @@
 package com.mycompany.maquimanage.models.dto;
 
+import jakarta.validation.constraints.NotNull;
+
+import java.math.BigDecimal;
+
 public class RegistrarPremioDTO {
 
+    @NotNull(message = "El ID de la máquina es obligatorio.")
     private Integer idMaquina;
-    private Double montoBillete;
-    private Double montoCoras;
 
+    private BigDecimal montoBillete;
+
+    private BigDecimal montoCoras;
+
+    @NotNull(message = "El ID del usuario es obligatorio.")
+    private Integer idUsuario;
+
+    // Getters y setters
     public Integer getIdMaquina() {
         return idMaquina;
     }
@@ -14,19 +25,27 @@ public class RegistrarPremioDTO {
         this.idMaquina = idMaquina;
     }
 
-    public Double getMontoBillete() {
+    public BigDecimal getMontoBillete() {
         return montoBillete;
     }
 
-    public void setMontoBillete(Double montoBillete) {
+    public void setMontoBillete(BigDecimal montoBillete) {
         this.montoBillete = montoBillete;
     }
 
-    public Double getMontoCoras() {
+    public BigDecimal getMontoCoras() {
         return montoCoras;
     }
 
-    public void setMontoCoras(Double montoCoras) {
+    public void setMontoCoras(BigDecimal montoCoras) {
         this.montoCoras = montoCoras;
+    }
+
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
     }
 }
